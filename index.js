@@ -6,7 +6,10 @@ var pathRegexp
 var versions = {
   '0.1.7': require('./versions/0.1.7'),
   '1.7.0': require('./versions/1.7.0'),
-  '2.0.0': require('./versions/2.0.0')
+  '2.0.0': require('./versions/2.0.0'),
+  '2.4.0': require('./versions/2.4.0'),
+  '3.0.0': require('./versions/3.0.0'),
+  '5.0.0': require('./versions/5.0.0')
 }
 
 var _ = document.querySelector.bind(document)
