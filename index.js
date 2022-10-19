@@ -9,7 +9,8 @@ var versions = {
   '2.0.0': require('./versions/2.0.0'),
   '2.4.0': require('./versions/2.4.0'),
   '3.0.0': require('./versions/3.0.0'),
-  '5.0.0': require('./versions/5.0.0')
+  '5.0.0': require('./versions/5.0.0'),
+  '6.2.1': require('./versions/6.2.1')
 }
 
 var _ = document.querySelector.bind(document)
@@ -34,6 +35,10 @@ function show (selector) {
 _('#inputStrict').addEventListener('change', updateOptions, false)
 _('#inputSensitive').addEventListener('change', updateOptions, false)
 _('#inputEnd').addEventListener('change', updateOptions, false)
+_('#inputStart').addEventListener('change', updateOptions, false)
+_('#inputDelimiter').addEventListener('change', updateOptions, false)
+_('#inputPrefixes').addEventListener('change', updateOptions, false)
+_('#inputEndsWith').addEventListener('change', updateOptions, false)
 
 _('#inputVersion').addEventListener('change', setVersion, false)
 _('#inputRoute').addEventListener('input', debounce(update, 100), false)
@@ -42,7 +47,11 @@ _('#inputPath').addEventListener('input', debounce(updatePath, 100), false)
 var opts = {
   strict: false,
   sensitive: false,
-  end: true
+  end: true,
+  start: true,
+  delimiter: "/#?",
+  prefixes: "/.",
+  endsWith: ""
 }
 function updateOptions (e) {
   switch (e.target.id) {
@@ -55,12 +64,26 @@ function updateOptions (e) {
     case 'inputEnd':
       opts.end = e.target.checked
       break
+    case 'inputStart':
+      opts.start = e.target.checked
+      break
+    case 'inputDelimiter':
+      opts.delimiter = e.target.value
+      break
+    case 'inputPrefixes':
+      opts.prefixes = e.target.value
+      break
+    case 'inputEndsWith':
+      opts.endsWith = e.target.value
+      break
   }
   update()
 }
 
 function setVersion () {
+  console.log("_('#inputVersion').value: " + _('#inputVersion').value)
   pathRegexp = versions[_('#inputVersion').value] || pathRegexp
+  console.log(pathRegexp)
   update()
 }
 
